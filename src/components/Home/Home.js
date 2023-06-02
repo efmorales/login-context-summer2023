@@ -5,11 +5,11 @@ import { ThemeContext } from '../../context/ThemeContext'
 
 function Home() {
 
-    const {theme, setTheme} = useContext(ThemeContext)
+    const {theme, setTheme, changeTheme} = useContext(ThemeContext)
 
-    function changeTheme () {
-        theme === 'light' ? setTheme('dark') : setTheme ('light')
-    }
+    // function changeTheme () {
+    //     theme === 'light' ? setTheme('dark') : setTheme ('light')
+    // }
 
     return (
 

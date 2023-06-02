@@ -8,9 +8,13 @@ function App() {
 
   const [theme, setTheme] = useState('light');
 
+  function changeTheme () {
+        theme === 'light' ? setTheme('dark') : setTheme ('light')
+    }
+
   return (
     <div className="App">
-      <ThemeContext.Provider value={{theme, setTheme}}>
+      <ThemeContext.Provider value={{theme, setTheme, changeTheme}}>
 
         < Home />
         
