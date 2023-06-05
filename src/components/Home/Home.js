@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import './Home.css'
 
 import { ThemeContext } from '../../context/ThemeContext'
+import { LoginContext } from "../../context/LoginContext";
 
 function Home() {
 
@@ -11,11 +12,26 @@ function Home() {
     //     theme === 'light' ? setTheme('dark') : setTheme ('light')
     // }
 
+    const login = useContext(LoginContext);
+
     return (
 
         <div className={theme}>
 
-            Home
+            {
+                login.isAuth ?
+                <>
+                
+                Welcome to Home, {login.username}
+                </>
+
+                :
+
+                <>
+                Not user logged in
+                </>
+            }
+
 
             <h3>{theme}</h3>
 

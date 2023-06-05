@@ -36,6 +36,13 @@ const loginReducer = (login, action) => {
                     message: "Incorrect password"
                 };
             }
+        case 'logout':
+            return {
+                username: "",
+                password: "",
+                isAuth: false,
+                message: "Logged-out",
+            }
         default:
             return login;
     }

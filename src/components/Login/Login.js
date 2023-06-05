@@ -5,11 +5,11 @@ import "./Login.css"
 
 const Login = () => {
     // consume theme context
-    const {theme} = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
     // consume login context
-    const login = useContext (LoginContext);
-    const dispatch = useContext (LoginDispatchContext);
-    const [input, setInput] =  useState ({
+    const login = useContext(LoginContext);
+    const dispatch = useContext(LoginDispatchContext);
+    const [input, setInput] = useState({
         username: '',
         password: '',
     });
@@ -20,37 +20,51 @@ const Login = () => {
             [e.target.name]: e.target.value
         })
     }
-  return (
-    <div className={theme}>
-        <h2> {login.message}</h2>
-        <label htmlFor='username'>Username</label>
-        <input
-            type='text'
-            name='username'
-            value={input.username}
-            onChange={onChangeHandler}
-        />
-        {/* <p>{input.username}</p> */}
-        <br/>
-        <label htmlFor='password'> Password </label>
-        <input
-        type='password'
-        name='password'
-        value={input.password}
-        onChange={onChangeHandler}
-        />
-        <br/>
-        <button>Register</button>
-        <br/>
-        <button onClick={
-            () => dispatch({
-                type: 'login',
-                data: input
-            })
-            }>Login</button>
+    return (
+        <div className={theme}>
+            <h2> {login.message}</h2>
+            {
+                login.isAuth ?
 
-    </div>
-  )
+                    <button onClick={
+                        () => dispatch({
+                            type: 'logout',
+                        })
+                    }>Logout</button>
+
+                    :
+                    <>
+                        <label htmlFor='username'>Username</label>
+                        <input
+                            type='text'
+                            name='username'
+                            value={input.username}
+                            onChange={onChangeHandler}
+                        />
+                        {/* <p>{input.username}</p> */}
+                        <br />
+                        <label htmlFor='password'> Password </label>
+                        <input
+                            type='password'
+                            name='password'
+                            value={input.password}
+                            onChange={onChangeHandler}
+                        />
+                        <br />
+                        <button>Register</button>
+                        <br />
+                        <button onClick={
+                            () => dispatch({
+                                type: 'login',
+                                data: input
+                            })
+                        }>Login</button>
+
+
+                    </>
+            }
+        </div>
+    )
 }
 
 export default Login
