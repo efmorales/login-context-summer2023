@@ -21,7 +21,7 @@ function App() {
         <LoginProvider>
 
           < Home />
-          <Login />
+          < Login />
 
         </LoginProvider>
 
