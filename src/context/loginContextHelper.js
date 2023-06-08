@@ -1,7 +1,7 @@
 import Axios from '../lib/Axios'
 
 const errorHandler = async (dispatch, error) => {
-    dispatch ({
+    dispatch({
         type: 'error',
         message: error.response.data,
     })
@@ -18,25 +18,39 @@ export const fetchLogin = async (dispatch, userData) => {
         console.log('!@-------response-------@!')
         console.log(response.data)
 
+        localStorage.setItem('jwtToken', response.data.token);
+
         dispatch({
             type: 'login',
-            data: response.data
+            data: {
+                username: response.data.username,
+                message: response.data.message
+            }
         })
     } catch (error) {
-        errorHandler(dispatch,error);
+        errorHandler(dispatch, error);
     }
 }
 
 export const registerUser = async (dispatch, userData) => {
-    try {let response = await Axios.post('/users/register', userData)
-    console.log('!@-------response-------@!')
-    console.log(response.data);
+    try {
+        let response = await Axios.post('/users/register', userData)
+        console.log('!@-------response-------@!')
+        console.log(response.data);
 
-    dispatch({
-        type: 'register',
-        payload: response.data,
-    })} catch (error) {
-        errorHandler(dispatch,error);
+        dispatch({
+            type: 'register',
+            payload: response.data,
+        })
+    } catch (error) {
+        errorHandler(dispatch, error);
     }
 
 }
+
+export const logoutUser = async (dispatch, userData) => {
+    dispatch ({
+        type: 'logout',
+    })
+}
+// localStorage.removeItem('jwtToken')

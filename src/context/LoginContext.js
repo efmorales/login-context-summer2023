@@ -44,6 +44,7 @@ const loginReducer = (login, action) => {
         // set isAuth to false
         // and deliver a log out message = "Logged out!"
         case 'logout':
+            localStorage.removeItem('jwtToken');
             return {
                 username: '',
                 password: '',
