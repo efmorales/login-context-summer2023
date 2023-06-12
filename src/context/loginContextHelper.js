@@ -16,7 +16,7 @@ export const fetchLogin = async (dispatch, userData) => {
 
         let response = await Axios.post('/users/login', userData)
         console.log('!@-------response-------@!')
-        console.log(response.data)
+        console.log(response)
 
         localStorage.setItem('jwtToken', response.data.token);
 
