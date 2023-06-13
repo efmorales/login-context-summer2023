@@ -1,4 +1,5 @@
-import {createContext, useReducer, useEffect} from 'react' 
+import { createContext, useReducer, useEffect } from 'react'
+import { checkAuthToken } from '../lib/checkAuthToken'
 
 export const AuthContext = createContext(null)
 
@@ -8,8 +9,20 @@ const initialState = {
     isAuth: false
 }
 
-export const AuthProvider = ({children}) => {
+export const AuthProvider = ({ children }) => {
     const [auth, dispatch] = useReducer(authReducer, initialState)
+
+    useEffect(() => {
+        //check if there is a token
+        let authy = checkAuthToken();
+        // turn true or false, then dispatch
+        authy ?
+            dispatch({
+                type: "AUTH_SUCCESS"
+            }) : dispatch({
+                type: "AUTH_FAILURE"
+            })
+    }, []);
 
     return (
         <AuthContext.Provider value={auth}>
@@ -30,7 +43,7 @@ const authReducer = (auth, action) => {
             return {
                 isAuth: false
             }
-         
+
         default:
             //if something is broken default to not authorized
             return {

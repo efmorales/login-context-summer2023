@@ -8,7 +8,7 @@ const errorHandler = async (dispatch, error) => {
 }
 
 
-export const fetchLogin = async (dispatch, userData) => {
+export const fetchLogin = async (dispatch, userData, authDispatch) => {
     try {
         console.log('!@-------userData-------@!')
         console.log(userData)
@@ -19,6 +19,10 @@ export const fetchLogin = async (dispatch, userData) => {
         console.log(response)
 
         localStorage.setItem('jwtToken', response.data.token);
+
+        authDispatch({
+            type: 'AUTH_SUCCESS'
+        })
 
         dispatch({
             type: 'login',
@@ -48,9 +52,15 @@ export const registerUser = async (dispatch, userData) => {
 
 }
 
-export const logoutUser = async (dispatch, userData) => {
-    dispatch ({
-        type: 'logout',
-    })
+export const logoutUser = async (dispatch, authDispatch) => {
+    try {
+        localStorage.removeItem('jwtToken');
+        authDispatch({ type: "AUTH_FAILURE" })
+        dispatch({
+            type: 'logout',
+        })
+    } catch (error) {
+        errorHandler(dispatch, error)
+    }
 }
 // localStorage.removeItem('jwtToken')

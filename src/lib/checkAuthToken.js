@@ -7,10 +7,11 @@ export const checkAuthToken = () => {
         // set headers
         setHeaderToken(jwtToken);
         // set auth is true
+        return true;
     } else {
         // delete header
         // set auth to false
         setHeaderToken();
-
+        return false;
     }
 }
